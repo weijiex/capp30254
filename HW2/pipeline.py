@@ -35,8 +35,8 @@ def data_overview(df):
 def make_graph(df, col_name):
     '''
     Generate a simple graph for the desired column variable
-	    df: pandas DataFrame
-	    col_name: desired variable
+        df: pandas DataFrame
+        col_name: desired variable
     '''
     print('Plotting ' + col_name)
     df[col_name].hist()
@@ -116,7 +116,8 @@ def test_model(X_train, y_train, features, method):
     Build classifiers chosen by the user
         X_train, y_train: Pandas DataFrame
         features: list of strings, variables we care about
-        method: LogisticRegression(), KNeighborsClassifier(), DecisionTreeClassifier()
+        method: LogisticRegression(), KNeighborsClassifier(), DecisionTreeClassifier(),\
+        RandomForestClassifier(), GradientBoostingClassifier()
     '''
     X = X_train[features]
     y = y_train
@@ -130,14 +131,15 @@ def predict_model(X_train, y_train, X_test, y, features, method):
         X_test: test pandas DataFrame
         y: string, outcome variable name, 'SeriousDlqin2yrs'
         features: list of strings, variables we care about
-        method: LogisticRegression(), KNeighborsClassifier(), DecisionTreeClassifier()
+        method: LogisticRegression(), KNeighborsClassifier(), DecisionTreeClassifier(),\
+        RandomForestClassifier(), GradientBoostingClassifier()
     '''
     method.fit(X_train[features], y_train)
     X = X_test[features]
     y_pred = method.predict(X)
     df_pred = X_test
     df_pred[y] = y_pred
-    df_pred.to_csv('predictions.csv', header=True)
+    df_pred.to_csv('predictions'+ str(method) + '.csv', header=True)
     
 
 
@@ -150,8 +152,10 @@ def eval_model(X_train, y_train, X_test, y_test, features, method):
     accuracy = metrics.accuracy_score(y_test, y_pred)
     recall = metrics.recall_score(y_test, y_pred)
     precision = metrics.precision_score(y_test, y_pred)
+    print('Evaluation for ' + str(method))
     print('Accuracy score is: {}'.format(accuracy))
     print('Recall score is: {}'.format(recall))
     print('Precision score is: {}'.format(precision))
+    print('________#############_______')
 
 

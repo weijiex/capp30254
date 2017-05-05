@@ -9,3 +9,5 @@ Writeup: data exploration and classifier performance analysis
 clf_evaluations.csv: result from small_grid
 
 Graphs from evaluation: precision_recall plots from small_grid
+
+process: containing process and results from running test_grid and small_grid
